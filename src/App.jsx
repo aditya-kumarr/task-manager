@@ -1,30 +1,28 @@
-import { AnimatePresence } from "framer-motion";
+// import { AnimatePresence } from "framer-motion";
 import { AuthProvider } from "./contexts/AuthContext";
 import TaskState from "./contexts/taskState";
 import ToastState from "./Toast/ToastContext";
 import MobileNav from "./MainComponents/mobileNav";
-// import Router from "./Router";
+import Router from "./Router";
 import Toaster from "./Toast/Toaster";
-// import ModalState from "./Modal/ModalContext";
 import ModalState from "./components/Modal/ModalContext";
 import ModalRenderer from "./components/Modal/ModalRenderer";
-import Router from "./Router"
 function App() {
   return (
-    <AuthProvider>
-      <TaskState>
-        <ModalState>
-          <ToastState>
+    <TaskState>
+      <AuthProvider>
+        <ToastState>
+          <ModalState>
             <div className="app">
               <MobileNav />
               <Router />
             </div>
             <Toaster />
             <ModalRenderer />
-          </ToastState>
-        </ModalState>
-      </TaskState>
-    </AuthProvider>
+          </ModalState>
+        </ToastState>
+      </AuthProvider>
+    </TaskState>
   );
 }
 
