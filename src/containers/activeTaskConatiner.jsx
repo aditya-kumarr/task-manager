@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import taskContext from "../contexts/TaskContext";
 import { ACTIONS } from "../contexts/taskState";
-import { ToastContext } from "../hooks/ToastContext";
+import { ToastContext } from "../Toast/ToastContext";
 import { FormComponent } from "../components/Modal/FormComponent";
 import { ModalContext } from "../components/Modal/ModalContext";
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import { ToastContext } from "../hooks/ToastContext";
+import { ToastContext } from "./ToastContext";
 import Toast from "./Toast";
 
 const Toaster = () => {

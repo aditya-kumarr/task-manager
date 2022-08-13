@@ -8,7 +8,7 @@ import { ListofText } from "./ListofText";
 import Popup from "./Popup";
 import { TaskDetailContext } from "./TaskDetailContext";
 import { ACTIONS } from "../contexts/taskState";
-import { ToastContext } from "../hooks/ToastContext";
+import { ToastContext } from "../Toast/ToastContext";
 import PropmtComponent from "../components/Modal/PropmtComponent";
 // import Promptcom``
 
@@ -21,7 +21,7 @@ const DetailedTask = ({
     createdOn: "DoomsDay",
   },
   closePressed,
-  state
+  state,
 }) => {
   const [list, setList] = useState(false);
   const [problems, setProblems] = useState(false);
@@ -92,14 +92,13 @@ const DetailedTask = ({
     });
   };
 
-
   return (
     <div>
       <div>
         <Slabel>Name</Slabel> : {task.taskName}
       </div>
       <div>
-        <Slabel >Description</Slabel> : {task.taskDescription}
+        <Slabel>Description</Slabel> : {task.taskDescription}
       </div>
       <div>
         <Slabel>Type</Slabel> : {task.taskType}
@@ -107,14 +106,18 @@ const DetailedTask = ({
       <div>
         <Slabel>Created On</Slabel> : {task.createdOn}
       </div>
-      <div><Slabel>Need</Slabel> : {task.need}</div>
+      <div>
+        <Slabel>Need</Slabel> : {task.need}
+      </div>
       <ButtonGroup fontsize="1rem">
-        {state!=="completed" && <SButton onClick={onActivateTask} >Activate</SButton>}
-        <SButton onClick={onRemoveTask} >Remove</SButton>
+        {state !== "completed" && (
+          <SButton onClick={onActivateTask}>Activate</SButton>
+        )}
+        <SButton onClick={onRemoveTask}>Remove</SButton>
         <SButton
           onClick={() => {
             setProblems(true);
-            setList(false)
+            setList(false);
           }}
         >
           Show Problem
@@ -122,7 +125,7 @@ const DetailedTask = ({
         <SButton
           onClick={() => {
             setList(true);
-            setProblems(false)
+            setProblems(false);
           }}
         >
           Show Notes
@@ -130,21 +133,15 @@ const DetailedTask = ({
       </ButtonGroup>
       <AnimatePresence>
         {problems && (
-          <Popup onPressClose={()=>setProblems(false)}>
-            <ListofText
-              title="Problems"
-              list={task.problems}
-            />
+          <Popup onPressClose={() => setProblems(false)}>
+            <ListofText title="Problems" list={task.problems} />
           </Popup>
         )}
       </AnimatePresence>
       <AnimatePresence>
         {list && (
-          <Popup onPressClose={()=>setList(false)}>
-            <ListofText
-              title="Notes"
-              list={task.notes}
-            />
+          <Popup onPressClose={() => setList(false)}>
+            <ListofText title="Notes" list={task.notes} />
           </Popup>
         )}
       </AnimatePresence>

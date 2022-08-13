@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import taskContext from "../../contexts/TaskContext";
 import { ACTIONS } from "../../contexts/taskState";
-import { ToastContext } from "../../hooks/ToastContext";
+import { ToastContext } from "../../Toast/ToastContext";
 import Toast, { SToastContainer } from "../../Toast/Toast";
 
 import {
