@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview --host"
+    "preview": "vite preview --host",
+    "deploy":"vite build && firebase deploy"
   },
   "dependencies": {
     "firebase": "^9.9.2",
