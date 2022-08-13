@@ -52,9 +52,7 @@ const reducer = (state, action) => {
         currentUser: action.user,
       };
     case ACTIONS.ADD_TASK:
-      state.currentUser
-        ? UpdateTaskList([...state.taskList, action.payload])
-        : "";
+      state.currentUser && UpdateTaskList([...state.taskList, action.payload]);
       return {
         ...state,
         taskList: [...state.taskList, action.payload],
@@ -64,7 +62,7 @@ const reducer = (state, action) => {
       const filteredTaskList = state.taskList.filter(
         (item) => item.id !== action.payload.id
       );
-      state.currentUser ? UpdateTaskList(filteredTaskList) : "";
+      state.currentUser && UpdateTaskList(filteredTaskList) 
       return {
         ...state,
         taskList: filteredTaskList,
@@ -101,10 +99,10 @@ const reducer = (state, action) => {
         const newTask = { ...action.payload, taskState: "active" };
         // UpdateItem(newTask);
         state.currentUser
-          ? UpdateTaskList([...rest, newTask, state.activatedTask])
-          : "";
+          && UpdateTaskList([...rest, newTask, state.activatedTask])
+          
         // SetActivatedTask(newTask);
-        state.currentUser ? SetActivatedTask(newTask) : "";
+        state.currentUser && SetActivatedTask(newTask) 
         return {
           ...state,
           taskList: [...rest, newTask, state.activatedTask],
@@ -115,8 +113,8 @@ const reducer = (state, action) => {
           return item.id !== action.payload.id;
         });
         const newTask = { ...action.payload, taskState: "active" };
-        state.currentUser ? UpdateTaskList([...rest, newTask]) : "";
-        state.currentUser ? SetActivatedTask(newTask) : "";
+        state.currentUser && UpdateTaskList([...rest, newTask]) 
+        state.currentUser && SetActivatedTask(newTask) 
         // SetActivatedTask(newTask);
         return {
           ...state,
@@ -129,11 +127,11 @@ const reducer = (state, action) => {
       // Todo: change the tasklist[state==activated] to postponed and activated task == {id:dummy}
       // return the
       const newTask2 = { ...state.activatedTask, taskState: "postponed" };
-      state.currentUser ? SetActivatedTask(null) : "";
+      state.currentUser && SetActivatedTask(null) 
       const rest2 = state.taskList.filter(
         (item) => item.id !== action.payload.id && "dummy"
       );
-      state.currentUser ? UpdateTaskList([...rest2, newTask2]) : "";
+      state.currentUser && UpdateTaskList([...rest2, newTask2]) 
       return {
         ...state,
         taskList: [...rest2, newTask2],
@@ -146,11 +144,11 @@ const reducer = (state, action) => {
       const newTask3 = { ...state.activatedTask, taskState: "completed" };
       console.log(newTask3);
       // UpdateItem(newTask3);
-      state.currentUser ? SetActivatedTask(null) : "";
+      state.currentUser && SetActivatedTask(null) 
       const rest3 = state.taskList.filter(
         (item) => item.id !== action.payload.id && "dummy"
       );
-      state.currentUser ? UpdateTaskList([...rest3, newTask3]) : "";
+      state.currentUser && UpdateTaskList([...rest3, newTask3]) 
       return {
         ...state,
         taskList: [...rest3, newTask3],
@@ -158,7 +156,7 @@ const reducer = (state, action) => {
       };
     case ACTIONS.ADD_PROBLEM:
       state.currentUser
-        ? UpdateTaskList([
+        && UpdateTaskList([
             ...state.taskList.filter(
               (task) => task.id !== state.activatedTask.id
             ),
@@ -167,13 +165,13 @@ const reducer = (state, action) => {
               problems: [...state.activatedTask.problems, action.problem],
             },
           ])
-        : "";
+        
       state.currentUser
-        ? SetActivatedTask({
+        && SetActivatedTask({
             ...state.activatedTask,
             problems: [...state.activatedTask.problems, action.problem],
           })
-        : "";
+        
       return {
         ...state,
         activatedTask: {
@@ -192,7 +190,7 @@ const reducer = (state, action) => {
       // });
       console.log(state.activatedTask);
       state.currentUser
-        ? UpdateTaskList([
+        && UpdateTaskList([
             ...state.taskList.filter(
               (task) => task.id !== state.activatedTask.id
             ),
@@ -201,13 +199,13 @@ const reducer = (state, action) => {
               notes: [...state.activatedTask.notes, action.note],
             },
           ])
-        : "";
+        
       state.currentUser
-        ? SetActivatedTask({
+        && SetActivatedTask({
             ...state.activatedTask,
             notes: [...state.activatedTask.notes, action.note],
           })
-        : "";
+        
 
       return {
         ...state,
