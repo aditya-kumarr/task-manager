@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import {FaTrash} from "react-icons/fa"
+import { FaTrash } from "react-icons/fa";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { ButtonGroup, SButton } from "../components/Froms/ControlledFrom.style";
@@ -15,11 +15,11 @@ import PropmtComponent from "../components/Modal/PropmtComponent";
 
 const DetailedTask = ({
   task = {
-    taskName: "Eat Chicken",
-    taskDescription: "just a task what else can you expect",
-    taskType: "bad type",
-    need: "fun",
-    createdOn: "DoomsDay",
+    taskName: "",
+    taskDescription: "",
+    taskType: "",
+    need: "",
+    createdOn: "",
   },
   closePressed,
   state,
@@ -115,7 +115,9 @@ const DetailedTask = ({
           <SButton onClick={onActivateTask}>Activate</SButton>
         )}
         <SButton onClick={onRemoveTask}>Remove</SButton>
-        <SButton ><FaTrash/></SButton>
+        <SButton>
+          <FaTrash />
+        </SButton>
         <SButton
           onClick={() => {
             setProblems(true);
