@@ -14,8 +14,8 @@ export function TaskInQueue(props) {
         props.onTaskClick();
       }}
     >
-      <div>{props.item.taskName}</div>
-      <div>{props.item.taskDescription}</div>
+      <TaskTitle>{props.item.taskName}</TaskTitle>
+      <TaskDescription>{props.item.taskDescription}</TaskDescription>
     </QueueTask>
   );
 }
@@ -27,6 +27,15 @@ export const QueueTask = styled(motion.div)`
   padding: 0.5rem;
   border-radius: 0.75rem;
 `;
+
+const TaskTitle = styled.h2`
+    font-weight: 700;
+`
+const TaskDescription = styled.h2`
+    font-weight: 300;
+    color: #999;
+`
+
 
 const slide = {
   initial: {
