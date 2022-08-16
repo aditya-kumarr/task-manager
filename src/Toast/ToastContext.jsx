@@ -14,7 +14,6 @@ const reducer = (state, action) => {
   } else if (action.type === "HIDE") {
     return { ...state, show: false };
   } else {
-    console.log("default state ran");
     return state;
   }
 };

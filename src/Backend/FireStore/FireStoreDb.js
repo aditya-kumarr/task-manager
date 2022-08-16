@@ -26,7 +26,6 @@ export const _SetDocRef = (userId) => {
           getDoc(docRef).then((doc) => console.log(doc.data()));
         });
       } else {
-        console.log(doc.data());
       }
     })
     .catch((err) => {

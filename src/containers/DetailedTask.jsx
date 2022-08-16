@@ -1,4 +1,5 @@
 import { AnimatePresence } from "framer-motion";
+import {FaTrash} from "react-icons/fa"
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { ButtonGroup, SButton } from "../components/Froms/ControlledFrom.style";
@@ -114,6 +115,7 @@ const DetailedTask = ({
           <SButton onClick={onActivateTask}>Activate</SButton>
         )}
         <SButton onClick={onRemoveTask}>Remove</SButton>
+        <SButton ><FaTrash/></SButton>
         <SButton
           onClick={() => {
             setProblems(true);

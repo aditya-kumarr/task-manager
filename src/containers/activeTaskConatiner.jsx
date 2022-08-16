@@ -39,7 +39,6 @@ const ActiveTaskConatiner = () => {
       note: data["note"],
     });
     if (completed) {
-      console.log("completed");
       dispatch({
         type: ACTIONS.COMPLETE_TASK,
         payload: activatedTask,

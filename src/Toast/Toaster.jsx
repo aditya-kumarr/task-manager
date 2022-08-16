@@ -10,7 +10,6 @@ const Toaster = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       toastDispatch({ type: "HIDE" });
-      console.log("closed");
     }, 5000);
     return () => clearTimeout(timer);
   }, [show]);

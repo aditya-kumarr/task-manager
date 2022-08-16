@@ -6,12 +6,8 @@ import Timer from "../Timers/Timer";
 import { SPageContainer, Spage } from "../MainComponents/pages.style";
 
 const Homepage = () => {
-  const workEnd = () => {
-    console.log("Work Ended");
-  };
-  const breakEnd = () => {
-    console.log("Break Ended");
-  };
+  const workEnd = () => {};
+  const breakEnd = () => {};
   return (
     <Spage>
       <SPageContainer>

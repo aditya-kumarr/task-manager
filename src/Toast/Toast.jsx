@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import React from "react";
 
 const Toast = ({ children, closeToast, type, position }) => {
-  console.log(position);
   return (
     <SToastContainer position={position}>
       <SToast

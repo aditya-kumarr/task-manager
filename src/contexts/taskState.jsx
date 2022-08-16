@@ -142,7 +142,6 @@ const reducer = (state, action) => {
       // add the set the activated task as dummy task then return all the tasks
       // except for the dummy and completed task + the newly activated task
       const newTask3 = { ...state.activatedTask, taskState: "completed" };
-      console.log(newTask3);
       // UpdateItem(newTask3);
       state.currentUser && SetActivatedTask(null) 
       const rest3 = state.taskList.filter(
@@ -188,7 +187,6 @@ const reducer = (state, action) => {
       //   ...state.activatedTask,
       //   problems: [...state.activatedTask.problems, action.note],
       // });
-      console.log(state.activatedTask);
       state.currentUser
         && UpdateTaskList([
             ...state.taskList.filter(

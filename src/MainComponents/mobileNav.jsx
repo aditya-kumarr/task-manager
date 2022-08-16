@@ -52,7 +52,6 @@ const MobileNav = () => {
           <StyledNavIcon
             onClick={() => {
               handleClick(index);
-              console.log("link pressed");
             }}
             active={isOpen[index]}
           >

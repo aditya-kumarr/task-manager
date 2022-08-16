@@ -62,7 +62,6 @@ const AuthIcon = () => {
             if (res) {
               signOut(auth);
               location.reload();
-              console.log("logged out");
             }
             modalDispatch({ type: "HIDE" });
           }}
