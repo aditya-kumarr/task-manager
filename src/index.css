@@ -66,13 +66,37 @@ body {
 }
 
 .app {
-  background-image: url(assets/orion-nebula-11107.jpg);
+  position:relative;
+  background: #181931;
   overflow-x: hidden;
   background-size: cover;
   background-position: center;
   height: 100vh;
   width: 100vw;
 }
+
+.app::before{
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #6461d0;
+  border-radius: 50%;
+  filter: blur(80px);
+
+}
+.app::after{
+  content: "";
+  top:40%;
+  right:50%;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #fa3df0;
+  filter: blur(80px);
+  border-radius: 50%;
+}
+
 
 * {
   margin: 0;
