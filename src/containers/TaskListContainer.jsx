@@ -10,7 +10,7 @@ import DetailedTask from "./DetailedTask";
 
 const TaskListContainer = ({ listTitle, state, listOfTasks = [] }) => {
   const { setSelectedTask,selectedTask } = useContext(TaskDetailContext);
-  const [list, setlist] = useState(false);
+  const [detail, setDetail] = useState(false);
   
 
   return (
@@ -18,9 +18,9 @@ const TaskListContainer = ({ listTitle, state, listOfTasks = [] }) => {
       <TaskQueue>
         <Stitle>{listTitle}</Stitle>
         <AnimatePresence>
-          {list && (
-            <Popup onPressClose={() => setlist(false)}>
-              <DetailedTask task={selectedTask} state={state} closePressed={()=>setlist(false)} />
+          {detail && (
+            <Popup onPressClose={() => setDetail(false)}>
+              <DetailedTask task={selectedTask} state={state} closePressed={()=>setDetail(false)} />
             </Popup>
           )}
         </AnimatePresence>
@@ -31,7 +31,7 @@ const TaskListContainer = ({ listTitle, state, listOfTasks = [] }) => {
                 key={item.id}
                 setSelectedTask={setSelectedTask}
                 item={item}
-                onTaskClick={() => setlist(!list)}
+                onTaskClick={() => setDetail(!detail)}
                 index={index}
               ></TaskInQueue>
             );
