@@ -115,9 +115,6 @@ const DetailedTask = ({
           <SButton onClick={onActivateTask}>Activate</SButton>
         )}
         <SButton onClick={onRemoveTask}>Remove</SButton>
-        <SButton>
-          <FaTrash />
-        </SButton>
         <SButton
           onClick={() => {
             setProblems(true);
