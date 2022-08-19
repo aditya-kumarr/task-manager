@@ -30,13 +30,14 @@ export function TaskInQueue({ index, item, setSelectedTask, onTaskClick }) {
   );
 }
 export const QueueTask = styled(motion.div)`
-  display: flex;
-  /* flex-direction: column; */
+  display: grid;
   cursor: pointer;
+  grid-auto-flow: column;
+  grid-template-columns: 50px auto;
   background-color: rgba(0, 0, 0, 0.1);
   /* backdrop-filter: blur(10px); */
   border: 1px solid #ccc;
-  padding: 0.5rem;
+  padding: 0.25em;
   border-radius: 0.75rem;
 `;
 

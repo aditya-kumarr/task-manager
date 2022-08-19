@@ -37,11 +37,11 @@ const DetailedTask = ({
         <PropmtComponent
           onPrompt={(res) => {
             if (res) {
-              dispatch({ type: ACTIONS.ACTIVATE_TASK, payload: selectedTask });
+              dispatch({ type: ACTIONS.ACTIVATE_TASK, payload: task });
 
               toastDispatch({
                 type: "SHOW",
-                message: `${selectedTask.taskName} activated`,
+                message: `${task.taskName} activated`,
               });
             } else {
               toastDispatch({
@@ -70,10 +70,10 @@ const DetailedTask = ({
         <PropmtComponent
           onPrompt={(res) => {
             if (res) {
-              dispatch({ type: ACTIONS.REMOVE_TASK, payload: selectedTask });
+              dispatch({ type: ACTIONS.REMOVE_TASK, payload: task });
               toastDispatch({
                 type: "SHOW",
-                message: `${selectedTask.taskName} Removed`,
+                message: `${task.taskName} Removed`,
               });
             } else {
               toastDispatch({
