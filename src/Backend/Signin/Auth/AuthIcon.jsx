@@ -162,7 +162,7 @@ const DropDownMenu = styled.div`
   flex-direction: column;
   gap: 0.25em;
   min-width: 250px;
-  right: 20px;
+  left: 20px;
   font-size: 1rem;
   padding: 0.5em;
   top: calc(100% + 0.5rem);
@@ -215,7 +215,7 @@ const SAuthIcon = styled.div`
   z-index: 10;
   font-size: 1.5rem;
   top: 20px;
-  right: 20px;
+  left: 20px;
   padding: 0.25em;
   border-radius: 50%;
   background-color: white;
