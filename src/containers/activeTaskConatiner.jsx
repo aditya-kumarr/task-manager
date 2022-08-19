@@ -5,98 +5,32 @@ import { ACTIONS } from "../contexts/taskState";
 import { ToastContext } from "../Toast/ToastContext";
 import { FormComponent } from "../components/Modal/FormComponent";
 import { ModalContext } from "../components/Modal/ModalContext";
+import {
+  NoteModalHandler,
+  ProblemModalHandler,
+} from "../CommonDispatch/CommonDispatch";
 
 const ActiveTaskConatiner = () => {
   let { dispatch, activatedTask } = useContext(taskContext);
   let currentTask = activatedTask;
-
-  // const [completed, setCompleted] = useState(false);
-  let completed = false;
-  let postponed = false;
-  // const [postponed, setPosponed] = useState(false);
   const { toastDispatch } = useContext(ToastContext);
   const { modalDispatch } = useContext(ModalContext);
-  const onProblemSubmitHandler = (data) => {
-    modalDispatch({ type: "HIDE" });
-    dispatch({
-      type: ACTIONS.ADD_PROBLEM,
-      payload: currentTask,
-      problem: data["problem"],
-    });
-    if (postponed) {
-      dispatch({
-        type: ACTIONS.POSTPONE_TASK,
-        payload: currentTask,
-      });
-      toastDispatch({ type: "SHOW", message: "Task Postponed" });
-    }
-  };
-  const onNoteSubmitHandler = (data) => {
-    modalDispatch({ type: "HIDE" });
-
-    dispatch({
-      type: ACTIONS.ADD_FEEDBACK,
-      payload:currentTask,
-      note: data["note"],
-    });
-    if (completed) {
+  const completePressHandler = () => {
+    NoteModalHandler(modalDispatch, dispatch, currentTask, () => {
       dispatch({
         type: ACTIONS.COMPLETE_TASK,
         payload: activatedTask,
       });
       toastDispatch({ type: "SHOW", message: "Task Completed" });
-    }
-  };
-
-  const completePressHandler = () => {
-    completed = true;
-
-    noteModalHandler();
-  };
-  const postponePressHandler = () => {
-    postponed = true;
-    problemModalHandler();
-  };
-
-  const problemModalHandler = () => {
-    modalDispatch({
-      type: "SHOW",
-      message: (
-        <FormComponent
-          buttonName="Add"
-          formArr={[
-            {
-              label: "Problem",
-              name: "problem",
-              type: "text",
-            },
-          ]}
-          formTitle="Problem ?"
-          onSubmitAction={onProblemSubmitHandler}
-        />
-      ),
-      heading: "You have any problem",
     });
   };
-
-  const noteModalHandler = () => {
-    modalDispatch({
-      type: "SHOW",
-      message: (
-        <FormComponent
-          buttonName="Add"
-          formArr={[
-            {
-              label: "Note",
-              name: "note",
-              type: "text",
-            },
-          ]}
-          formTitle="Notes ?"
-          onSubmitAction={onNoteSubmitHandler}
-        />
-      ),
-      heading: "Wanna give some feedback",
+  const postponePressHandler = () => {
+    ProblemModalHandler(modalDispatch, dispatch, currentTask, () => {
+      dispatch({
+        type: ACTIONS.POSTPONE_TASK,
+        payload: activatedTask,
+      });
+      toastDispatch({ type: "SHOW", message: "Task Postponed" });
     });
   };
 
@@ -112,19 +46,21 @@ const ActiveTaskConatiner = () => {
       <ActiveTaskContainer>
         <h1>{currentTask.taskName}</h1>
         <Description>{currentTask.taskDescription}</Description>
-        <div>
-          {currentTask.notes.map((item, index) => {
-            return <div key={index}>{item}</div>;
-          })}
-        </div>
-        <div>
-          {currentTask.problems.map((item, index) => {
-            return <div key={index}>{item}</div>;
-          })}
-        </div>
         <ButtonContainer>
-          <button onClick={problemModalHandler}>Add Problem</button>
-          <button onClick={noteModalHandler}>Add Comment</button>
+          <button
+            onClick={() =>
+              ProblemModalHandler(modalDispatch, dispatch, currentTask)
+            }
+          >
+            Add Problem
+          </button>
+          <button
+            onClick={() =>
+              NoteModalHandler(modalDispatch, dispatch, currentTask)
+            }
+          >
+            Add Comment
+          </button>
           <button onClick={completePressHandler}>Complete</button>
           <button onClick={postponePressHandler}>Postpone</button>
         </ButtonContainer>
