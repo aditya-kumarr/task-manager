@@ -62,7 +62,7 @@ const reducer = (state, action) => {
       const filteredTaskList = state.taskList.filter(
         (item) => item.id !== action.payload.id
       );
-      state.currentUser && UpdateTaskList(filteredTaskList) 
+      state.currentUser && UpdateTaskList(filteredTaskList);
       return {
         ...state,
         taskList: filteredTaskList,
@@ -98,11 +98,11 @@ const reducer = (state, action) => {
         });
         const newTask = { ...action.payload, taskState: "active" };
         // UpdateItem(newTask);
-        state.currentUser
-          && UpdateTaskList([...rest, newTask, state.activatedTask])
-          
+        state.currentUser &&
+          UpdateTaskList([...rest, newTask, state.activatedTask]);
+
         // SetActivatedTask(newTask);
-        state.currentUser && SetActivatedTask(newTask) 
+        state.currentUser && SetActivatedTask(newTask);
         return {
           ...state,
           taskList: [...rest, newTask, state.activatedTask],
@@ -113,8 +113,8 @@ const reducer = (state, action) => {
           return item.id !== action.payload.id;
         });
         const newTask = { ...action.payload, taskState: "active" };
-        state.currentUser && UpdateTaskList([...rest, newTask]) 
-        state.currentUser && SetActivatedTask(newTask) 
+        state.currentUser && UpdateTaskList([...rest, newTask]);
+        state.currentUser && SetActivatedTask(newTask);
         // SetActivatedTask(newTask);
         return {
           ...state,
@@ -127,11 +127,11 @@ const reducer = (state, action) => {
       // Todo: change the tasklist[state==activated] to postponed and activated task == {id:dummy}
       // return the
       const newTask2 = { ...state.activatedTask, taskState: "postponed" };
-      state.currentUser && SetActivatedTask(null) 
+      state.currentUser && SetActivatedTask(null);
       const rest2 = state.taskList.filter(
         (item) => item.id !== action.payload.id && "dummy"
       );
-      state.currentUser && UpdateTaskList([...rest2, newTask2]) 
+      state.currentUser && UpdateTaskList([...rest2, newTask2]);
       return {
         ...state,
         taskList: [...rest2, newTask2],
@@ -143,74 +143,90 @@ const reducer = (state, action) => {
       // except for the dummy and completed task + the newly activated task
       const newTask3 = { ...state.activatedTask, taskState: "completed" };
       // UpdateItem(newTask3);
-      state.currentUser && SetActivatedTask(null) 
+      state.currentUser && SetActivatedTask(null);
       const rest3 = state.taskList.filter(
         (item) => item.id !== action.payload.id && "dummy"
       );
-      state.currentUser && UpdateTaskList([...rest3, newTask3]) 
+      state.currentUser && UpdateTaskList([...rest3, newTask3]);
       return {
         ...state,
         taskList: [...rest3, newTask3],
         activatedTask: { id: "dummy" },
       };
     case ACTIONS.ADD_PROBLEM:
-      state.currentUser
-        && UpdateTaskList([
-            ...state.taskList.filter(
-              (task) => task.id !== state.activatedTask.id
-            ),
-            {
-              ...state.activatedTask,
-              problems: [...state.activatedTask.problems, action.problem],
-            },
-          ])
-        
-      state.currentUser
-        && SetActivatedTask({
-            ...state.activatedTask,
-            problems: [...state.activatedTask.problems, action.problem],
-          })
-        
+      // this is going to be more complicated than I thought....
+      state.currentUser &&
+        UpdateTaskList([
+          ...state.taskList.filter((task) => task.id !== action.payload.id),
+          {
+            ...action.payload,
+            problems: [...action.payload.problems, action.problem],
+          },
+        ]);
+      // now I only wanna update the activated task if the action.payload.id === state.activatedTask.id
+      if (action.payload.id === state.activatedTask.id) {
+        state.currentUser &&
+          SetActivatedTask({
+            ...action.payload,
+            problems: [...action.payload.problems, action.problem],
+          });
+      }
+
+      // this should return all the tasks in the list except for the one which has the same id as the payload +
+      // the updated payload
+
+      const newList = state.taskList.filter((t) => t.id !== action.payload.id);
+      const newItem = {
+        ...action.payload,
+        problems: [...action.payload.problems, action.problem],
+      };
+      if (newItem.id === state.activatedTask.id) {
+        return {
+          ...state,
+          taskList: [...newList, newItem],
+          activatedTask: newItem,
+        };
+      }
       return {
         ...state,
-        activatedTask: {
-          ...state.activatedTask,
-          problems: [...state.activatedTask.problems, action.problem],
-        },
+        taskList: [...newList, newItem],
       };
     case ACTIONS.ADD_FEEDBACK:
-      // UpdateItem({
-      //   ...state.activatedTask,
-      //   problems: [...state.activatedTask.problems, action.note],
-      // });
-      // SetActivatedTask({
-      //   ...state.activatedTask,
-      //   problems: [...state.activatedTask.problems, action.note],
-      // });
-      state.currentUser
-        && UpdateTaskList([
-            ...state.taskList.filter(
-              (task) => task.id !== state.activatedTask.id
-            ),
-            {
-              ...state.activatedTask,
-              notes: [...state.activatedTask.notes, action.note],
-            },
-          ])
-        
-      state.currentUser
-        && SetActivatedTask({
-            ...state.activatedTask,
-            notes: [...state.activatedTask.notes, action.note],
-          })
-        
+      state.currentUser &&
+        UpdateTaskList([
+          ...state.taskList.filter((task) => task.id !== action.payload.id),
+          {
+            ...action.payload,
+            notes: [...action.payload.notes, action.note],
+          },
+        ]);
+      // now I only wanna update the activated task if the action.payload.id === state.activatedTask.id
+      if (action.payload.id === state.activatedTask.id) {
+        state.currentUser &&
+          SetActivatedTask({
+            ...action.payload,
+            notes: [...action.payload.notes, action.note],
+          });
+      }
 
+      // this should return all the tasks in the list except for the one which has the same id as the payload +
+      // the updated payload
+
+      const newList2 = state.taskList.filter((t) => t.id !== action.payload.id);
+      const newItem2 = {
+        ...action.payload,
+        notes: [...action.payload.notes, action.note],
+      };
+      if (newItem2.id === state.activatedTask.id) {
+        return {
+          ...state,
+          taskList: [...newList2, newItem2],
+          activatedTask: newItem2,
+        };
+      }
       return {
         ...state,
-        activatedTask: {
-          ...state.activatedTask,
-          notes: [...state.activatedTask.notes, action.note],
-        },
+        taskList: [...newList2, newItem2],
       };
     default:
       return state;

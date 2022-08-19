@@ -9,9 +9,8 @@ import { ListofText } from "./ListofText";
 import DetailedTask from "./DetailedTask";
 
 const TaskListContainer = ({ listTitle, state, listOfTasks = [] }) => {
-  const { setSelectedTask,selectedTask } = useContext(TaskDetailContext);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [detail, setDetail] = useState(false);
-  
 
   return (
     <>
@@ -20,7 +19,11 @@ const TaskListContainer = ({ listTitle, state, listOfTasks = [] }) => {
         <AnimatePresence>
           {detail && (
             <Popup onPressClose={() => setDetail(false)}>
-              <DetailedTask task={selectedTask} state={state} closePressed={()=>setDetail(false)} />
+              <DetailedTask
+                task={selectedTask}
+                state={state}
+                closePressed={() => setDetail(false)}
+              />
             </Popup>
           )}
         </AnimatePresence>

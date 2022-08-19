@@ -36,6 +36,7 @@ const ActiveTaskConatiner = () => {
 
     dispatch({
       type: ACTIONS.ADD_FEEDBACK,
+      payload:currentTask,
       note: data["note"],
     });
     if (completed) {

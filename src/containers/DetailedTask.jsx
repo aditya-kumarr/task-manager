@@ -7,10 +7,10 @@ import taskContext from "../contexts/TaskContext";
 import { ModalContext } from "../components/Modal/ModalContext";
 import { ListofText } from "./ListofText";
 import Popup from "./Popup";
-import { TaskDetailContext } from "./TaskDetailContext";
 import { ACTIONS } from "../contexts/taskState";
 import { ToastContext } from "../Toast/ToastContext";
 import PropmtComponent from "../components/Modal/PropmtComponent";
+import { FormComponent } from "../components/Modal/FormComponent";
 // import Promptcom``
 
 const DetailedTask = ({
@@ -27,7 +27,6 @@ const DetailedTask = ({
   const [list, setList] = useState(false);
   const [problems, setProblems] = useState(false);
   const { dispatch } = useContext(taskContext);
-  const { selectedTask } = useContext(TaskDetailContext);
   const { toastDispatch } = useContext(ToastContext);
   const { modalDispatch } = useContext(ModalContext);
 
@@ -92,6 +91,65 @@ const DetailedTask = ({
       heading: "Delete",
     });
   };
+  const onProblemSubmitHandler = (data) => {
+    modalDispatch({ type: "HIDE" });
+    dispatch({
+      type: ACTIONS.ADD_PROBLEM,
+      payload: task,
+      problem: data["problem"],
+    });
+  };
+  const onNoteSubmitHandler = (data) => {
+    modalDispatch({ type: "HIDE" });
+
+    dispatch({
+      type: ACTIONS.ADD_FEEDBACK,
+      payload: task,
+      note: data["note"],
+    });
+  };
+
+  const problemModalHandler = () => {
+    modalDispatch({
+      type: "SHOW",
+      message: (
+        <FormComponent
+          buttonName="Add"
+          formArr={[
+            {
+              label: "Problem",
+              name: "problem",
+              type: "text",
+            },
+          ]}
+          formTitle="Problem ?"
+          onSubmitAction={onProblemSubmitHandler}
+        />
+      ),
+      heading: "You have any problem",
+    });
+  };
+
+  const noteModalHandler = () => {
+    modalDispatch({
+      type: "SHOW",
+      message: (
+        <FormComponent
+          buttonName="Add"
+          formArr={[
+            {
+              label: "Note",
+              name: "note",
+              type: "text",
+            },
+          ]}
+          formTitle="Notes ?"
+          onSubmitAction={onNoteSubmitHandler}
+        />
+      ),
+      heading: "Wanna give some feedback",
+    });
+  };
 
   return (
     <div>
@@ -135,14 +193,22 @@ const DetailedTask = ({
       <AnimatePresence>
         {problems && (
           <Popup onPressClose={() => setProblems(false)}>
-            <ListofText title="Problems" list={task.problems} />
+            <ListofText
+              title="Problems"
+              list={task.problems}
+              buttonPressHandler={problemModalHandler}
+            />
           </Popup>
         )}
       </AnimatePresence>
       <AnimatePresence>
         {list && (
           <Popup onPressClose={() => setList(false)}>
-            <ListofText title="Notes" list={task.notes} />
+            <ListofText
+              title="Notes"
+              list={task.notes}
+              buttonPressHandler={noteModalHandler}
+            />
           </Popup>
         )}
       </AnimatePresence>
