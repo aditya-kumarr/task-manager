@@ -9,12 +9,19 @@ import {
   NoteModalHandler,
   ProblemModalHandler,
 } from "../CommonDispatch/CommonDispatch";
+import { AnimatePresence } from "framer-motion";
+import Popup from "./Popup";
+import { ListofText } from "./ListofText";
 
 const ActiveTaskConatiner = () => {
   let { dispatch, activatedTask } = useContext(taskContext);
   let currentTask = activatedTask;
   const { toastDispatch } = useContext(ToastContext);
   const { modalDispatch } = useContext(ModalContext);
+
+  const [list, setList] = useState(false);
+  const [problems, setProblems] = useState(false);
+
   const completePressHandler = () => {
     NoteModalHandler(modalDispatch, dispatch, currentTask, () => {
       dispatch({
@@ -48,23 +55,53 @@ const ActiveTaskConatiner = () => {
         <Description>{currentTask.taskDescription}</Description>
         <ButtonContainer>
           <button
-            onClick={() =>
-              ProblemModalHandler(modalDispatch, dispatch, currentTask)
-            }
+            onClick={() => {
+              setProblems(true);
+              setList(false);
+            }}
           >
-            Add Problem
+            Problems
           </button>
           <button
             onClick={() =>
-              NoteModalHandler(modalDispatch, dispatch, currentTask)
+              {
+              setProblems(false);
+              setList(true);
+            }
             }
           >
-            Add Comment
+            Notes
           </button>
           <button onClick={completePressHandler}>Complete</button>
           <button onClick={postponePressHandler}>Postpone</button>
         </ButtonContainer>
       </ActiveTaskContainer>
+      <AnimatePresence>
+        {problems && (
+          <Popup onPressClose={() => setProblems(false)}>
+            <ListofText
+              title="Problems"
+              list={activatedTask.problems}
+              buttonPressHandler={() =>
+                ProblemModalHandler(modalDispatch, dispatch, currentTask)
+              }
+            />
+          </Popup>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {list && (
+          <Popup onPressClose={() => setList(false)}>
+            <ListofText
+              title="Notes"
+              list={activatedTask.notes}
+              buttonPressHandler={() =>
+                NoteModalHandler(modalDispatch, dispatch, currentTask)
+              }
+            />
+          </Popup>
+        )}
+      </AnimatePresence>
     </>
   );
 };
