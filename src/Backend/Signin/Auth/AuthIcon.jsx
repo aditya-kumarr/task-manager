@@ -215,7 +215,7 @@ const SAuthIcon = styled.div`
   z-index: 10;
   font-size: 1.5rem;
   top: 20px;
-  right: 20px;
+  left: 20px;
   padding: 0.25em;
   border-radius: 50%;
   background-color: white;
