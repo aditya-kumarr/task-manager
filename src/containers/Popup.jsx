@@ -5,19 +5,19 @@ import { ListofText } from "./ListofText";
 const Popup = ({ children, onPressClose }) => {
   return (
     <>
-      <ListConainer
+      <ListContainer
         initial={{ x: "100vh", opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: "-100%", opacity: 0 }}
       >
         <CrossBtn onClick={onPressClose} >+</CrossBtn>
         {children}
-      </ListConainer>
+      </ListContainer>
     </>
   );
 };
 
-const ListConainer = styled(motion.section)`
+const ListContainer = styled(motion.section)`
   position: fixed;
   right: 0;
   display: flex;
